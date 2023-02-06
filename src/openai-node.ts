@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@zwisler/ada-lib'
+import { Attribute, Input, Node, Output } from '@zwisler/ada-lib'
 import { OpenAI } from './openai';
 @Node({
     identifier: 'openai-textgen',
@@ -6,6 +6,19 @@ import { OpenAI } from './openai';
     description: 'OpenAI text generation'
 })
 export class OpenAi {
+
+    @Attribute({
+        identifier: 'model',
+        name: 'Model'
+    })
+    model: string
+
+
+    @Attribute({
+        identifier: 'context',
+        name: 'Context'
+    })
+    context: string
 
     constructor(def: any, private aiService: OpenAI) { }
 
@@ -19,7 +32,7 @@ export class OpenAi {
     })
     async prompt(prompt) {
         if (typeof prompt !== 'string') return;
-        const answer = await this.aiService.generate(prompt);
+        const answer = await this.aiService.generate(prompt, this.model, this.context);
         this.answer(answer);
     }
 

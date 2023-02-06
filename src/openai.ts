@@ -5,11 +5,12 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 export class OpenAI {
 
-    async generate(prompt: string) {
-        console.log('Generating for:', prompt)
+    async generate(prompt: string, model = "text-davinci-003", context = "Answer helpful and nice") {
+        console.log('Generating for:', model, context, prompt)
+            ;
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: "Antworte als wärst du ein guter Freund \n Ich: " + prompt + " \nDu:",
+            prompt: context + " \n Ich: " + prompt + " \nDu:",
             temperature: 0.5,
             max_tokens: 100,
             top_p: 1.0,
