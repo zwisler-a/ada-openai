@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@ada/lib'
+import { Input, Node, Output } from '@zwisler/ada-lib'
 import { OpenAI } from './openai';
 @Node({
     identifier: 'openai-textgen',

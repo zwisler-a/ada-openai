@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "start:debug": "node --inspect dist/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@zwisler/ada-lib": "^1.0.0",
     "dotenv": "^16.0.3",
     "openai": "^3.1.0"
   },
