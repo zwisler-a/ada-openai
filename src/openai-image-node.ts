@@ -1,24 +1,17 @@
 import { Attribute, Input, Node, Output } from '@zwisler/ada-lib'
 import { OpenAI } from './openai';
 @Node({
-    identifier: 'openai-textgen',
-    name: 'OpenAi',
-    description: 'OpenAI text generation'
+    identifier: 'openai-imagegen',
+    name: 'OpenAi Image',
+    description: 'OpenAI image generation'
 })
-export class OpenAi {
+export class OpenAIImageNode {
 
     @Attribute({
-        identifier: 'model',
-        name: 'Model'
+        identifier: 'size',
+        name: 'Size'
     })
-    model: string
-
-
-    @Attribute({
-        identifier: 'context',
-        name: 'Context'
-    })
-    context: string
+    size: string
 
     constructor(def: any, private aiService: OpenAI) { }
 
@@ -32,7 +25,7 @@ export class OpenAi {
     })
     async prompt(prompt) {
         if (typeof prompt !== 'string') return;
-        const answer = await this.aiService.generate(prompt, this.model, this.context);
+        const answer = await this.aiService.generateImage(prompt, this.size);
         this.answer(answer);
     }
 

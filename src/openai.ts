@@ -21,4 +21,14 @@ export class OpenAI {
         console.log('Answer: ', completion.data.choices[0].text)
         return completion.data.choices[0].text
     }
+
+    async generateImage(prompt, size = "256x256") {
+        console.log('Generating Image for', prompt)
+        const response = await openai.createImage({
+            prompt,
+            n: 1,
+            size
+        });
+        return response.data.data[0].url;
+    }
 }
