@@ -2,7 +2,7 @@ import { Attribute, Input, Node, Output } from '@zwisler/ada-lib'
 import { OpenAI } from './openai';
 @Node({
     identifier: 'openai-textgen',
-    name: 'OpenAi',
+    name: 'OpenAi Text',
     description: 'OpenAI text generation'
 })
 export class OpenAITextNode {
