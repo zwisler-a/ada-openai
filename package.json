@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zwisler/ada-lib": "^1.0.1",
+    "@zwisler/ada-lib": "^1.0.3",
     "dotenv": "^16.0.3",
-    "openai": "^3.1.0"
+    "openai": "^3.2.1"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",

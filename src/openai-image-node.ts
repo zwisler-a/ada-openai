@@ -1,5 +1,6 @@
-import { Attribute, Input, Node, Output } from '@zwisler/ada-lib'
-import { OpenAI } from './openai';
+import {Attribute, Input, Node, Output} from '@zwisler/ada-lib'
+import {OpenAI} from './openai';
+
 @Node({
     identifier: 'openai-imagegen',
     name: 'OpenAi Image',
@@ -13,7 +14,8 @@ export class OpenAIImageNode {
     })
     size: string
 
-    constructor(def: any, private aiService: OpenAI) { }
+    constructor(def: any, private aiService: OpenAI) {
+    }
 
     @Output({
         name: 'Answer'
@@ -24,6 +26,7 @@ export class OpenAIImageNode {
         name: 'Prompt',
     })
     async prompt(prompt) {
+        console.log('Received promt:', prompt)
         if (typeof prompt !== 'string') return;
         const answer = await this.aiService.generateImage(prompt, this.size);
         this.answer(answer);

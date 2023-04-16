@@ -1,26 +1,30 @@
-const { Configuration, OpenAIApi } = require("openai");
+import {ChatCompletionResponseMessage, CreateChatCompletionRequest} from "openai";
+import {ChatCompletionRequestMessage} from "openai/api";
+
+const {Configuration, OpenAIApi} = require("openai");
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
+
 export class OpenAI {
 
-    async generate(prompt: string, model = "text-davinci-003", context = "Answer helpful and nice") {
+    async generate(prompt: Array<ChatCompletionRequestMessage>, model = "gpt-3.5-turbo", context = "Answer helpful and nice"): Promise<ChatCompletionResponseMessage> {
         try {
             console.log('Generating for:', model, context, prompt);
-            const completion = await openai.createCompletion({
-                model: "text-davinci-003",
-                prompt: context + " \n Ich: " + prompt + " \nDu:",
-                temperature: 0.5,
-                max_tokens: 100,
-                top_p: 1.0,
-                frequency_penalty: 0.5,
-                presence_penalty: 0.0,
-                stop: ["Du: ", "Ich: "],
-            });
-            console.log('Answer: ', completion.data.choices[0].text)
-            return completion.data.choices[0].text
-        } catch (e) { }
+            const request: CreateChatCompletionRequest = {
+                model: model,
+                messages: prompt,
+                temperature: 0.7,
+                max_tokens: 256,
+                top_p: 1.0
+            }
+            const completion = await openai.createChatCompletion(request);
+            console.log('Answer: ', completion.data.choices[0].message)
+            return completion.data.choices[0].message;
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     async generateImage(prompt, size = "256x256") {
@@ -32,6 +36,7 @@ export class OpenAI {
                 size
             });
             return response.data.data[0].url;
-        } catch (e) { }
+        } catch (e) {
+        }
     }
 }
